@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Python specific
+__pycache__
+.python-version
+
+# GTFS data
+data
