@@ -21,9 +21,9 @@ def gtfsToJSON(gtfsName):
     json.clear()
 
 def searchInDict(gtfsArrayName, key, value):
-    result = None
+    result = []
     for dictPart in gtfsArrayName:
         if dictPart[str(key)] == str(value):
-            result = dictPart
-            break
+            result.append(dictPart.copy())
     return(result)
+    result.clear()
