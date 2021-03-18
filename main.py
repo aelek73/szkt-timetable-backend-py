@@ -9,4 +9,12 @@ app.config["DEBUG"] = True
 def hello_world():
     return jsonify('Server is running')
 
+@app.route('/api/v1/<dataArray>', methods=['GET'])
+def api_all(dataArray):
+    return jsonify(gtfsToJSON(dataArray))
+
+@app.route('/api/v1/<dataArray>/<key>/<value>', methods=['GET'])
+def agencySearch(dataArray, key, value):
+    return jsonify(searchInDict(gtfsToJSON(dataArray), key, value))
+
 app.run()
