@@ -9,12 +9,12 @@ CORS(app)
 app.config["DEBUG"] = True
 
 @app.route('/', methods=['GET'])
-def hello_world():
+def server_running():
     return jsonify('Server is running')
 
-@app.route('/api/v1/<dataArray>', methods=['GET'])
-def api_all(dataArray):
-    return jsonify(gtfsToJSON(dataArray))
+@app.route('/api/v1/agency', methods=['GET'])
+def show_agencies():
+    return jsonify(gtfsToJSON('agency'))
 
 @app.route('/api/v1/<dataArray>/<path:pars>', methods=['GET'])
 def agencySearch(dataArray, pars):
