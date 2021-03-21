@@ -68,6 +68,21 @@ def show_trips_by_route_id(route_id):
 
     return jsonify(selected_elements)
 
+@app.route('/api/v1/stop_times/trip_id/<path:pars>', methods=['GET'])
+def show_stops_name_by_trip_id(pars):
+    main_trip_id = str(pars.split('/')[0])
+    stops = searchInDict(gtfsToJSON('stop_times'), 'trip_id', str(main_trip_id), 'in')
+    stop_names = []
+    tmp = []
+    for element in stops:
+        if not element['stop_id'] in tmp:
+            tmp.append(element['stop_id'])
+            stop_names.append(searchInDict(gtfsToJSON('stops'), 'stop_id', element['stop_id'], 'is')[0])
+        else:
+            continue
+
+    return jsonify(stop_names)
+
 @app.route('/api/v1/<dataArray>/<path:pars>', methods=['GET'])
 def agencySearch(dataArray, pars):
     if len(pars.split('/')) >= 3:
