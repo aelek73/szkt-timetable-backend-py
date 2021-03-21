@@ -7,5 +7,5 @@ def write_log(msg):
     if os.path.exists('logs'):
         os.system('touch logs')
     log_file = open('logs', 'a')
-    current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    log_file.write(current_time,'-',msg)
+    current_time = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+    log_file.write(current_time + ' - ' + msg + '\n')
