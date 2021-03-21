@@ -16,6 +16,10 @@ def server_running():
 def show_agencies():
     return jsonify(gtfsToJSON('agency'))
 
+@app.route('/api/v1/routes/agency_id/<agency_id>', methods=['GET'])
+def show_routes_by_agency_id(agency_id):
+    return jsonify(searchInDict(gtfsToJSON('routes'), 'agency_id', str(agency_id), 'is'))
+
 @app.route('/api/v1/<dataArray>/<path:pars>', methods=['GET'])
 def agencySearch(dataArray, pars):
     if len(pars.split('/')) >= 3:
