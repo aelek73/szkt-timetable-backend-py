@@ -84,7 +84,7 @@ def show_stops_name_by_trip_id(pars):
     return jsonify(stop_names)
 
 @app.route('/api/v1/times/<path:pars>', methods=['GET'])
-def get_times(pars):
+def show_times(pars):
     route_id = pars.split('&')[0].split('=')[1]
     direction_id = pars.split('&')[1].split('=')[1]
     stop_id = pars.split('&')[2].split('=')[1]
@@ -125,4 +125,4 @@ def agencySearch(dataArray, pars):
 
 if __name__ == '__main__':
     updateData()
-    app.run()
+    app.run(host='0.0.0.0', port=3000)
