@@ -39,7 +39,6 @@ def downloadFiles():
     os.system('wget -O data/gtfs_data.zip http://szegedimenetrend.hu/google_transit.zip &> /dev/null')
     os.system('unzip data/gtfs_data.zip -d data/ &> /dev/null')
     os.system("md5 data/gtfs_data.zip | awk '{ print $4 }' >data/gtfsHash")
-    os.system('rm data/gtfs_data.zip')
 
 def updateData():
     if not os.path.exists('data'):
@@ -54,3 +53,5 @@ def updateData():
         if newFileHash != oldFileHash:
             os.system('rm -rf data/*')
             downloadFiles()
+        else:
+            os.system('rm data/gtfs_tmp.zip')
