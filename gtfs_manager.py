@@ -35,6 +35,7 @@ def searchInDict(gtfsArrayName, key, value, fitting):
     result.clear()
 
 def downloadFiles():
+    write_log('downloadFiles: Update GTFS data')
     os.system('wget -O data/gtfs_data.zip http://szegedimenetrend.hu/google_transit.zip &> /dev/null')
     os.system('unzip data/gtfs_data.zip -d data/ &> /dev/null')
     os.system("md5 data/gtfs_data.zip | awk '{ print $4 }' >data/gtfsHash")
@@ -42,6 +43,7 @@ def downloadFiles():
 
 def updateData():
     if not os.path.exists('data'):
+        write_log('updateData: create data folder')
         os.system('mkdir data')
     if not os.path.exists('data/gtfsHash'):
         downloadFiles()
