@@ -113,16 +113,6 @@ def show_times(pars):
 
     return jsonify(selected_arrival_times)
 
-@app.route('/api/v1/<dataArray>/<path:pars>', methods=['GET'])
-def agencySearch(dataArray, pars):
-    if len(pars.split('/')) >= 3:
-        key = pars.split('/')[0]
-        value = str(pars.split('/')[1]) + '/' + str(pars.split('/')[2])
-    else:
-        key = pars.split('/')[0]
-        value = pars.split('/')[1]
-    return jsonify(searchInDict(gtfsToJSON(dataArray), key, value, 'in'))
-
 if __name__ == '__main__':
     updateData()
     app.run(host='0.0.0.0', port=3000)
