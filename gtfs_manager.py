@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from logger import *
 import json
 import csv
 import os
@@ -35,7 +36,7 @@ def searchInDict(gtfsArrayName, key, value, fitting):
 
 def downloadFiles():
     os.system('wget -O data/gtfs_data.zip http://szegedimenetrend.hu/google_transit.zip &> /dev/null')
-    os.system('unzip data/gtfs_data.zip -d data/')
+    os.system('unzip data/gtfs_data.zip -d data/ &> /dev/null')
     os.system("md5 data/gtfs_data.zip | awk '{ print $4 }' >data/gtfsHash")
     os.system('rm data/gtfs_data.zip')
 

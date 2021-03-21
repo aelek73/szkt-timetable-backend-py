@@ -1,5 +1,6 @@
 import os
 from gtfs_manager import *
+from logger import *
 import flask
 from flask_cors import CORS
 from flask import request, jsonify
