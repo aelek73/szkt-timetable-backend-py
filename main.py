@@ -83,6 +83,36 @@ def show_stops_name_by_trip_id(pars):
 
     return jsonify(stop_names)
 
+@app.route('/api/v1/times/<path:pars>', methods=['GET'])
+def get_times(pars):
+    route_id = pars.split('&')[0].split('=')[1]
+    direction_id = pars.split('&')[1].split('=')[1]
+    stop_id = pars.split('&')[2].split('=')[1]
+
+    selected_routes_by_id = searchInDict(gtfsToJSON('trips'), 'route_id', str(route_id), 'is')
+    selected_trips_by_direction_id = searchInDict(selected_routes_by_id, 'direction_id', str(direction_id), 'is')
+    selected_stop_times_by_stop_id = searchInDict(gtfsToJSON('stop_times'), 'stop_id', str(stop_id), 'is')
+
+    selected_trips = []
+    for element in selected_trips_by_direction_id:
+        selected_trips.append(element['trip_id'])
+
+    selected_stop_times = []
+    for stop_time in selected_stop_times_by_stop_id:
+        for trip_id in selected_trips:
+            if trip_id == stop_time['trip_id']:
+                selected_stop_times.append(stop_time)
+
+    sorted_stop_times = sorted(selected_stop_times, key = lambda x: x['arrival_time'])
+    selected_arrival_times = []
+    i = 0
+    while i + 1 < len(sorted_stop_times):
+        if not sorted_stop_times[i]['arrival_time'] == sorted_stop_times[i + 1]['arrival_time']:
+            selected_arrival_times.append(sorted_stop_times[i])
+        i += 1
+
+    return jsonify(selected_arrival_times)
+
 @app.route('/api/v1/<dataArray>/<path:pars>', methods=['GET'])
 def agencySearch(dataArray, pars):
     if len(pars.split('/')) >= 3:
