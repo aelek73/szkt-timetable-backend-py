@@ -2,6 +2,7 @@
 
 import json
 import csv
+import os
 
 def gtfsToJSON(gtfsName):
     i = 0
