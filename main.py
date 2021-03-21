@@ -5,6 +5,7 @@ from logger import *
 import flask
 from flask_cors import CORS
 from flask import request, jsonify
+from multiprocessing import Process
 
 app = flask.Flask(__name__)
 CORS(app)
@@ -115,7 +116,19 @@ def show_times(pars):
 
     return jsonify(selected_arrival_times)
 
-if __name__ == '__main__':
-    updateData()
+def flask_rest_api():
     logging.basicConfig(filename='flask.log',level=logging.DEBUG)
     app.run(host='0.0.0.0', port=3000)
+
+def run_every_day():
+    while True:
+        updateData()
+        time.sleep(86400)
+
+if __name__ == '__main__':
+    process1 = Process(target=flask_rest_api)
+    process1.start()
+    process2 = Process(target=run_every_day)
+    process2.start()
+    process1.join()
+    process2.join()
