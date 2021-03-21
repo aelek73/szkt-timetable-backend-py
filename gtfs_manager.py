@@ -20,11 +20,15 @@ def gtfsToJSON(gtfsName):
     array.clear()
     json.clear()
 
-def searchInDict(gtfsArrayName, key, value):
+def searchInDict(gtfsArrayName, key, value, fitting):
     result = []
     for dictPart in gtfsArrayName:
-        if dictPart[str(key)] == str(value):
-            result.append(dictPart.copy())
+        if fitting == 'in':
+            if str(value) in dictPart[str(key)]:
+                result.append(dictPart.copy())
+        if fitting == 'is':
+            if str(value) == dictPart[str(key)]:
+                result.append(dictPart.copy())
     return(result)
     result.clear()
 
