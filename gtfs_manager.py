@@ -40,6 +40,8 @@ def downloadFiles():
     os.system('rm data/gtfs_data.zip')
 
 def updateData():
+    if not os.path.exists('data'):
+        os.system('mkdir data')
     if not os.path.exists('data/gtfsHash'):
         downloadFiles()
     else:
