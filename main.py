@@ -1,4 +1,5 @@
 import os
+import logging
 from gtfs_manager import *
 from logger import *
 import flask
@@ -116,4 +117,5 @@ def show_times(pars):
 
 if __name__ == '__main__':
     updateData()
+    logging.basicConfig(filename='flask.log',level=logging.DEBUG)
     app.run(host='0.0.0.0', port=3000)
